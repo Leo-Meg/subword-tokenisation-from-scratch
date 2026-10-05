@@ -4,9 +4,8 @@ Byte Pair Encoding implémenté depuis zéro, sans aucune dépendance, puis mis 
 
 **Léo Mégret**, Master Linguistique Informatique, Université Paris Cité
 
-> **État du dépôt, version 1.** C'est la première étape d'un travail que je mène
-> par étapes, chacune dans son propre dossier. Seule la version 1 existe à ce
-> jour. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
+> **État du dépôt, version 2.** Je mène ce travail par étapes, chacune dans son
+> propre dossier. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
 
 ---
 
@@ -24,62 +23,36 @@ système traite-t-il toutes les langues à égalité.
 
 ---
 
-## Ce qui existe aujourd'hui
+## Les versions publiées
 
-### Version 1, Byte Pair Encoding écrit à la main
+| | Dossier | Contenu | Tests |
+|---|---|---|---:|
+| **1** | `1.tokenisation_python_projet` | Byte Pair Encoding écrit à la main | 15 |
+| **2** | `2.tokenisation_python_projet` | WordPiece, et pourquoi le critère de fusion change tout | 12 |
 
-L'algorithme fondateur de la tokenisation moderne, celui de GPT, de RoBERTa et de
-LLaMA.
-
-| Fichier | Ce que j'y fais |
-|---|---|
-| `src/bpe.py` | `TokeniseurBPE` complet. Pré-segmentation, comptage des paires, apprentissage des fusions, segmentation d'un mot par ordre de fusion, encodage et décodage inversibles, inspection du vocabulaire. |
-| `tests/test_bpe.py` | 15 tests, dont l'inversibilité et le déterminisme. |
-
-Origine universitaire. Projet de M1 en binôme, implémenter BPE et WordPiece depuis
-zéro, les entraîner sur des corpus français, comparer leurs vocabulaires et leurs
-temps d'exécution.
+Soit **27 tests** au total. Chaque dossier contient tout le contenu du
+précédent, plus une étape.
 
 ---
 
-## Lancer le code
+## Lancer la dernière version
 
 ```bash
-cd 1.tokenisation_python_projet
-python -m src.bpe
-python -m tests.test_bpe
+cd 2.tokenisation_python_projet
+python -m src.wordpiece
+python -m tests.test_wordpiece
 ```
-
-Aucune dépendance, pas même NumPy.
-
----
-
-## Ce que je retiens de cette étape
-
-**BPE ne fait pas de morphologie.** Il découpe `manger` en `mang` et `er`, ce qui
-est juste, et `mer` en `m` et `er`, ce qui ne l'est pas. L'algorithme ne fait
-aucune différence entre les deux cas, il fusionne les paires fréquentes.
-
-**Un mot inconnu reste segmentable.** C'est ce qui rend les sous-mots utiles face
-à un vocabulaire de mots entiers, où tout mot jamais vu devient `[UNK]`. C'est
-aussi pour cela que GPT-2 travaille sur des octets. Avec 256 octets possibles,
-aucun texte n'est hors-vocabulaire, dans aucune langue et pour aucun émoji.
-
-**Mon implémentation est naïve et je l'assume.** Elle recompte toutes les paires à
-chaque fusion, soit du O(V × M). Les implémentations sérieuses maintiennent les
-comptes de façon incrémentale. Je garde la version lisible.
 
 ---
 
 ## Ce qui reste ouvert
 
-Rien dans l'algorithme ne distingue une frontière morphologique réelle d'une
-coïncidence statistique. Je ne sais pas si une autre famille de tokeniseurs fait
-mieux sur ce point, ni comment on mesurerait la différence.
+J'ai maintenant deux algorithmes et deux vocabulaires, et aucun moyen de dire
+lequel est le meilleur. Les segmentations diffèrent, mais je n'ai rien pour
+décider si cette différence compte.
 
-La question de l'équité entre langues reste entière. Un tokeniseur entraîné
-majoritairement sur de l'anglais découpe le finnois ou le turc en morceaux très
-courts. Je voudrais pouvoir le chiffrer, je n'en suis pas là.
+Il me manque des mesures, et je ne sais pas encore lesquelles seraient
+pertinentes.
 
 ---
 
@@ -103,6 +76,8 @@ correct.
 que j'attendais, j'écris ce que j'ai trouvé.
 
 **Le code est commenté en français.**
+
+---
 
 ---
 
