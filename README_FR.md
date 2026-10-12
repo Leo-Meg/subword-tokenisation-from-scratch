@@ -1,11 +1,11 @@
-# Tokenisation en sous-mots, écrite à la main
+# La tokenisation en sous-mots, écrite à la main
 
-Byte Pair Encoding implémenté depuis zéro, sans aucune dépendance, puis mis à l'épreuve.
+Byte Pair Encoding et WordPiece implémentés from scratch, sans aucune dépendance, puis mis à l'épreuve.
 
-**Léo Mégret**, Master Linguistique Informatique, Université Paris Cité
+**Léo Mégret** — implémentation, notes techniques en français.  
+**Haeeul Hwang** — documentation anglaise, documentation coréenne, relecture.
 
-> **État du dépôt, version 2.** Je mène ce travail par étapes, chacune dans son
-> propre dossier. Je publie au fur et à mesure plutôt qu'une fois tout terminé.
+> **État du dépôt** — étape 2 sur 4, publiée par Léo Mégret.
 
 ---
 
@@ -23,62 +23,57 @@ système traite-t-il toutes les langues à égalité.
 
 ---
 
-## Les versions publiées
+## Les étapes
 
-| | Dossier | Contenu | Tests |
-|---|---|---|---:|
-| **1** | `1.tokenisation_python_projet` | Byte Pair Encoding écrit à la main | 15 |
-| **2** | `2.tokenisation_python_projet` | WordPiece, et pourquoi le critère de fusion change tout | 12 |
+| | Étape | Modules | Tests | Publiée par | Note détaillée (français) |
+|---|---|---|---:|---|---|
+| **1** | Byte Pair Encoding écrit à la main | `src/bpe.py` | 15 | Léo | [`byte-pair-encoding`](notes/byte-pair-encoding.md) |
+| **2** | WordPiece, et pourquoi le critère de fusion change tout | `src/wordpiece.py` | 12 | Léo | [`wordpiece`](notes/wordpiece.md) |
 
-Soit **27 tests** au total. Chaque dossier contient tout le contenu du
-précédent, plus une étape.
+**27** tests au total.
 
 ---
 
-## Lancer la dernière version
+## Ce que chaque étape a trouvé
+
+**1. Byte Pair Encoding écrit à la main**  
+Sans dictionnaire et sans annotation, BPE retrouve des morphèmes. Les premières fusions apprises sur un corpus français sont le `s` du pluriel, puis `e`, `es`, `en`, `ent`.
+
+**2. WordPiece, et pourquoi le critère de fusion change tout**  
+Même corpus, même taille de vocabulaire, une ligne de différence dans le critère : le recouvrement de Jaccard entre les deux vocabulaires est de 0,18.
+
+---
+
+## Lancer le code
 
 ```bash
-cd 2.tokenisation_python_projet
 python -m src.wordpiece
+
+python -m tests.test_bpe
 python -m tests.test_wordpiece
 ```
 
 ---
 
-## Ce qui reste ouvert
+## Comment nous travaillons
 
-J'ai maintenant deux algorithmes et deux vocabulaires, et aucun moyen de dire
-lequel est le meilleur. Les segmentations diffèrent, mais je n'ai rien pour
-décider si cette différence compte.
+**Rien à télécharger.** Le corpus est écrit dans le code. Tous mes
+notebooks de master commençaient par un `wget` vers un serveur universitaire ou
+un montage de Google Drive ; deux ans plus tard, la moitié ne s'exécutent plus.
 
-Il me manque des mesures, et je ne sais pas encore lesquelles seraient
-pertinentes.
-
----
-
-## Comment je travaille
-
-Quatre règles que je me suis données en commençant, et que je compte tenir sur
-tout le dépôt.
-
-**Rien à télécharger.** Le corpus est écrit dans le code. Mes notebooks de master
-commençaient tous par un `wget` vers un serveur universitaire ou un montage de
-Google Drive. Deux ans plus tard, la moitié ne s'exécutent plus.
-
-**Rien n'est affirmé sans mesure.** Chaque chiffre de ce fichier correspond à une
-commande qu'on peut relancer.
+**Rien n'est affirmé sans mesure.** Chaque chiffre de ce fichier correspond à
+une commande qu'on peut relancer.
 
 **Les erreurs de mes rendus sont citées, pas effacées.** Quand un résultat que
-j'avais rendu en cours était faux ou incomplet, je le dis et je donne le résultat
-correct.
+j'avais rendu était faux ou incomplet, je le dis et je donne le bon.
 
 **Les résultats négatifs restent.** Quand une expérience montre l'inverse de ce
 que j'attendais, j'écris ce que j'ai trouvé.
 
-**Le code est commenté en français.**
+**Le code est commenté en français**, parce que c'est la langue dans laquelle je
+l'ai pensé. La documentation est en anglais, et en coréen quand Haeeul est
+passée dessus.
 
 ---
 
----
-
-*Version anglaise, [README.md](README.md).*
+*English: [README.md](README.md) · [CONTRIBUTORS.md](CONTRIBUTORS.md)*

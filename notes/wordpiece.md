@@ -1,12 +1,14 @@
-# Version 2, WordPiece, et pourquoi le critère de fusion change tout
+# WordPiece, et pourquoi le critère de fusion change tout
+
+> Étape 2 sur 4 du dépôt.
 
 > **Où j'en suis.** BPE fusionne la paire la plus *fréquente*. WordPiece fusionne
-> la paire au meilleur *score de vraisemblance*. Cette version implémente le
+> la paire au meilleur *score de vraisemblance*. Cette étape implémente le
 > second, compare les deux, et tombe sur un résultat que je n'attendais pas.
 
 ---
 
-## Nouveautés par rapport à la version 1
+## Nouveautés par rapport à l'étape 1
 
 | Fichier | Ce que j'ajoute |
 |---|---|

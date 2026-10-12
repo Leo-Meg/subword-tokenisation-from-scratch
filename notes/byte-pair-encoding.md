@@ -1,4 +1,6 @@
-# Version 1, Byte Pair Encoding écrit à la main
+# Byte Pair Encoding écrit à la main
+
+> Étape 1 sur 4 du dépôt.
 
 > **Où j'en suis.** Je commence par l'algorithme fondateur de la tokenisation
 > moderne, celui de GPT, de RoBERTa et de LLaMA. Entraînement, encodage et
@@ -6,7 +8,7 @@
 
 ---
 
-## Ce que contient cette version
+## Ce que contient cette étape
 
 | Fichier | Ce que j'y fais |
 |---|---|
